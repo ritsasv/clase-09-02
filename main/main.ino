@@ -33,7 +33,7 @@ void setup() {
   display.clearDisplay();
   mostrarTexto("Ritsa electronica.", 20, 10, 3);
   Serial.println("R");
-  delay(3000); // Mantener el mensaje 3 segundos
+  delay(5000); // Mantener el mensaje 5 segundos
 
   display.ssd1306_command(SSD1306_DISPLAYOFF);
   display.clearDisplay();
