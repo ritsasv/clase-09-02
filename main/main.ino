@@ -97,7 +97,11 @@ void loop() {
   }
 }
 
-void mostrarTexto(String texto, int x, int y, int size=1) {
+void mostrarTexto(String texto, int x, int y) {
+  mostrarTexto(texto, x, y, 1); 
+}
+
+void mostrarTexto(String texto, int x, int y, int size) {
   display.setTextSize(size);
   display.setTextColor(SSD1306_WHITE);
   display.setCursor(x, y);
