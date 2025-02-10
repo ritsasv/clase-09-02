@@ -31,7 +31,7 @@ void setup() {
   }
     // *Mostrar mensaje inicial*
   display.clearDisplay();
-  mostrarTexto("Ritsa electronica.", 20, 10, 3);
+  mostrarTexto("Ritsa.", 20, 10, 2);
   Serial.println("R");
   delay(5000); // Mantener el mensaje 5 segundos
 
