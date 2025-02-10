@@ -31,7 +31,7 @@ void setup() {
   }
     // *Mostrar mensaje inicial*
   display.clearDisplay();
-  mostrarTexto("Ritsa electronica", 20, 10);
+  mostrarTexto("Ritsa electronica.", 20, 10, 3);
   Serial.println("R");
   delay(3000); // Mantener el mensaje 3 segundos
 
@@ -97,8 +97,8 @@ void loop() {
   }
 }
 
-void mostrarTexto(String texto, int x, int y) {
-  display.setTextSize(1);
+void mostrarTexto(String texto, int x, int y, int size=1) {
+  display.setTextSize(size);
   display.setTextColor(SSD1306_WHITE);
   display.setCursor(x, y);
   display.print(texto);
