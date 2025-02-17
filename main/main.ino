@@ -1,8 +1,10 @@
+
 #include <Adafruit_Fingerprint.h>
 #include <SoftwareSerial.h>
 #include <Wire.h>
 #include <Adafruit_GFX.h>
 #include <Adafruit_SSD1306.h>
+
 
 // Configuración de SoftwareSerial para los pines 2 y 3
 SoftwareSerial mySerial(2, 3); // RX, TX
@@ -18,6 +20,7 @@ const int MAX_USUARIOS = 3;
 const int MAX_LONGITUD_NOMBRE = 20;  // Máximo de caracteres por nombre
 
 char nombres[MAX_USUARIOS][MAX_LONGITUD_NOMBRE] = { "" };
+#define BUZZER_PIN 8
 
 void setup() {
   Serial.begin(9600);
@@ -42,12 +45,21 @@ void setup() {
   // Iniciar el lector de huellas
   mySerial.begin(57600);
   finger.begin(57600);
-
+  pinMode(BUZZER_PIN, OUTPUT);
   if (finger.verifyPassword()) {
     Serial.println("c");
   } else {
     Serial.println("E");
     while (1);
+  }
+}
+
+void hacerBeep(int repeticiones) {
+  for (int i = 0; i < repeticiones; i++) {
+    digitalWrite(BUZZER_PIN, HIGH);
+    delay(2000);
+    digitalWrite(BUZZER_PIN, LOW);
+    delay(2000);
   }
 }
 
@@ -205,7 +217,9 @@ void identificarHuella() {
     display.display();
     display.clearDisplay();
     mostrarTexto("Huella reconocida", 20, 10);
-    delay(1000);
+    //startPlayback(audio, sizeof(audio)); 
+    hacerBeep(1);
+    delay(4000);
     if (strlen(nombres[id]) > 0) {
       Serial.println(nombres[id]);
       display.clearDisplay();
@@ -221,6 +235,9 @@ void identificarHuella() {
     display.flush();
     finger.begin(57600);
 
+  }else{
+    hacerBeep(3);
+    
   }
 }
 
