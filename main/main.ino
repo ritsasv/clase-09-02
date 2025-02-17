@@ -277,3 +277,23 @@ int buscarIDDisponible() {
   }
   return -1;
 }
+
+
+
+
+
+
+
+/*const int buzzerPin = 8;
+
+void setup() {
+  pinMode(buzzerPin, OUTPUT);
+  // Generar un tono de 1000 Hz durante 5 segundos
+  tone(buzzerPin, 1000);
+  delay(5000);
+  noTone(buzzerPin);
+}
+
+void loop() {
+  // No hace nada después del pulso inicial
+}*/
