@@ -9,7 +9,8 @@
 // Configuración de SoftwareSerial para los pines 2 y 3
 SoftwareSerial mySerial(2, 3); // RX, TX
 Adafruit_Fingerprint finger(&mySerial);
-
+const int buzzerPin = 8;
+int frecuencia = 1000;
 // Configuración de la pantalla OLED
 #define SCREEN_WIDTH 128
 #define SCREEN_HEIGHT 32
@@ -161,8 +162,12 @@ void registrarHuella() {
   nombre[indice] = '\0';  // Terminar la cadena con null
 
   strcpy(nombres[id], nombre);  // Copiar el nombre al arreglo
+  
   if (capturarHuella(id)) {
     Serial.print("Huella registrada exitosamente como ");
+    tone(buzzerPin, frecuencia);
+    delay(10000);
+    noTone(buzzerPin);
     Serial.println(nombres[id]);
   } else {
     Serial.println("Error al registrar la huella.");
@@ -217,6 +222,9 @@ void identificarHuella() {
     display.display();
     display.clearDisplay();
     mostrarTexto("Huella reconocida", 20, 10);
+    tone(buzzerPin, frecuencia);
+    delay(2000);
+    noTone(buzzerPin);
     //startPlayback(audio, sizeof(audio)); 
     hacerBeep(1);
     delay(4000);
@@ -284,8 +292,7 @@ int buscarIDDisponible() {
 
 
 
-/*const int buzzerPin = 8;
-
+/*
 void setup() {
   pinMode(buzzerPin, OUTPUT);
   // Generar un tono de 1000 Hz durante 5 segundos
