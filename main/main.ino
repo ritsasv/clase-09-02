@@ -222,13 +222,17 @@ void identificarHuella() {
     display.display();
     display.clearDisplay();
     mostrarTexto("Huella reconocida", 20, 10);
+    
     tone(buzzerPin, frecuencia);
     delay(2000);
     noTone(buzzerPin);
+    
     //startPlayback(audio, sizeof(audio)); 
-    hacerBeep(1);
-    delay(4000);
+    //hacerBeep(1);
+    //delay(4000);
+
     if (strlen(nombres[id]) > 0) {
+      // aca ocurre cuando se a registrado la huella
       Serial.println(nombres[id]);
       display.clearDisplay();
       mostrarTexto(nombres[id], 20, 10);
@@ -244,7 +248,7 @@ void identificarHuella() {
     finger.begin(57600);
 
   }else{
-    hacerBeep(3);
+    //hacerBeep(3);
     
   }
 }
