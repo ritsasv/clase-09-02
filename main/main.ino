@@ -18,7 +18,7 @@ Adafruit_SSD1306 display(SCREEN_WIDTH, SCREEN_HEIGHT, &Wire);
 
 // Configuración de usuarios
 const int MAX_USUARIOS = 3;
-const int MAX_LONGITUD_NOMBRE = 20;  // Máximo de caracteres por nombre
+const int MAX_LONGITUD_NOMBRE = 6;  // Máximo de caracteres por nombre irving
 
 char nombres[MAX_USUARIOS][MAX_LONGITUD_NOMBRE] = { "" };
 #define BUZZER_PIN 8
@@ -35,7 +35,7 @@ void setup() {
   }
     // *Mostrar mensaje inicial*
   display.clearDisplay();
-  mostrarTexto("Ritsa.", 20, 10, 2);
+  mostrarTexto("Ritsa", 20, 10, 2);
   Serial.println("R");
   delay(5000); // Mantener el mensaje 5 segundos
 
@@ -55,14 +55,6 @@ void setup() {
   }
 }
 
-void hacerBeep(int repeticiones) {
-  for (int i = 0; i < repeticiones; i++) {
-    digitalWrite(BUZZER_PIN, HIGH);
-    delay(2000);
-    digitalWrite(BUZZER_PIN, LOW);
-    delay(2000);
-  }
-}
 
 void loop() {
   identificarHuella();  // Activar la identificación de huellas
@@ -113,7 +105,8 @@ void loop() {
 void mostrarTexto(String texto, int x, int y) {
   mostrarTexto(texto, x, y, 1); 
 }
-
+//mostrarTexto('',1,1)
+//mostrarTexto('',1,1,5)
 void mostrarTexto(String texto, int x, int y, int size) {
   display.setTextSize(size);
   display.setTextColor(SSD1306_WHITE);
@@ -165,9 +158,7 @@ void registrarHuella() {
   
   if (capturarHuella(id)) {
     Serial.print("Huella registrada exitosamente como ");
-    tone(buzzerPin, frecuencia);
-    delay(10000);
-    noTone(buzzerPin);
+    
     Serial.println(nombres[id]);
   } else {
     Serial.println("Error al registrar la huella.");
@@ -221,21 +212,12 @@ void identificarHuella() {
     display.clearDisplay();
     display.display();
     display.clearDisplay();
-    mostrarTexto("Huella reconocida", 20, 10);
-    
-    tone(buzzerPin, frecuencia);
-    delay(2000);
-    noTone(buzzerPin);
-    
-    //startPlayback(audio, sizeof(audio)); 
-    //hacerBeep(1);
-    //delay(4000);
-
+    mostrarTexto("Huella reconocida", 20, 10,1.5);
+    delay(1000);
     if (strlen(nombres[id]) > 0) {
-      // aca ocurre cuando se a registrado la huella
       Serial.println(nombres[id]);
       display.clearDisplay();
-      mostrarTexto(nombres[id], 20, 10);
+      mostrarTexto(nombres[id], 20, 10,2);
     } else {
       Serial.println("sin nombre asociado.");
     }
@@ -247,9 +229,6 @@ void identificarHuella() {
     display.flush();
     finger.begin(57600);
 
-  }else{
-    //hacerBeep(3);
-    
   }
 }
 
@@ -296,15 +275,3 @@ int buscarIDDisponible() {
 
 
 
-/*
-void setup() {
-  pinMode(buzzerPin, OUTPUT);
-  // Generar un tono de 1000 Hz durante 5 segundos
-  tone(buzzerPin, 1000);
-  delay(5000);
-  noTone(buzzerPin);
-}
-
-void loop() {
-  // No hace nada después del pulso inicial
-}*/
